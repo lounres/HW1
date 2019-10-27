@@ -55,7 +55,8 @@ p{
 #sec1pattern {
     grid-area: sec1pattern;
     width: 100%;
-    background-color: #182033;
+    /* background-color: #182033; */
+    background-image: url('/images/pattern.png');
 }
 
 #sec1pattern > img{

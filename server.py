@@ -24,57 +24,69 @@ class myHandler(BaseHTTPRequestHandler):
             self._set_response("text/html")
             self.wfile.write(self.open_file("main.html"))
             return
-        if self.path == "/main.css":
+        if self.path == "/css/main.css":
             self._set_response("text/css")
-            self.wfile.write(self.open_file("main.css"))
+            self.wfile.write(self.open_file("css/main.css"))
             return
-        if self.path == "/2705.png":
+        if self.path == "/css/GameStyles.css":
+            self._set_response("text/css")
+            self.wfile.write(self.open_file("css/GameStyles.css"))
+            return
+        if self.path == "/js/Game.js":
+            self._set_response("application/javascript")
+            self.wfile.write(self.open_file("js/Game.js"))
+            return
+        if self.path == "/js/Namespace.js":
+            self._set_response("application/javascript")
+            self.wfile.write(self.open_file("js/Namespace.js"))
+            return
+        if self.path == "/images/2705.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("2705.png"))
+            self.wfile.write(self.open_file("images/2705.png"))
             return
-        if self.path == "/design.png":
+        if self.path == "/images/design.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("design.png"))
+            self.wfile.write(self.open_file("images/design.png"))
             return
-        if self.path == "/EuclideaLogo.png":
+        if self.path == "/images/EuclideaLogo.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("EuclideaLogo.png"))
+            self.wfile.write(self.open_file("images/EuclideaLogo.png"))
             return
-        if self.path == "/favicon2.png":
+        if self.path == "/images/favicon2.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("favicon2.png"))
+            self.wfile.write(self.open_file("images/favicon2.png"))
             return
-        if self.path == "/fb.svg":
+        if self.path == "/images/fb.svg":
             self._set_response("image/svg+xml")
-            self.wfile.write(self.open_file("fb.svg"))
+            self.wfile.write(self.open_file("images/fb.svg"))
             return
-        if self.path == "/game_preview.png":
+        if self.path == "/images/game_preview.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("game_preview.png"))
+            self.wfile.write(self.open_file("images/game_preview.png"))
             return
-        if self.path == "/inst.svg":
+        if self.path == "/images/inst.svg":
             self._set_response("image/svg+xml")
-            self.wfile.write(self.open_file("inst.svg"))
+            self.wfile.write(self.open_file("images/inst.svg"))
             return
-        if self.path == "/logo.png":
+        if self.path == "/images/logo.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("logo.png"))
+            self.wfile.write(self.open_file("images/logo.png"))
             return
-        if self.path == "/logo2.png":
+        if self.path == "/images/logo2.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("logo2.png"))
+            self.wfile.write(self.open_file("images/logo2.png"))
             return
-        if self.path == "/pattern.png":
+        if self.path == "/images/pattern.png":
             self._set_response("image/png")
-            self.wfile.write(self.open_file("pattern.png"))
+            self.wfile.write(self.open_file("images/pattern.png"))
             return
-        if self.path == "/tw.svg":
+        if self.path == "/images/tw.svg":
             self._set_response("image/svg+xml")
-            self.wfile.write(self.open_file("tw.svg"))
+            self.wfile.write(self.open_file("images/tw.svg"))
             return
-        if self.path == "/vk.svg":
+        if self.path == "/images/vk.svg":
             self._set_response("image/svg+xml")
-            self.wfile.write(self.open_file("vk.svg"))
+            self.wfile.write(self.open_file("images/vk.svg"))
             return
 
 try:
