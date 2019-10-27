@@ -11,12 +11,15 @@ let Game = doc.getElementById("Game"); //Div игры, который уже о�
 console.log((game_params.sizeY + game_params.posY + 20)); //TODO: WTF?
 let sup = (game_params.sizeY + game_params.posY + 20);    //TODO: WTF??
 game_params.posX = (sup - game_params.sizeX) / 2; //TODO: WTF???
-Game.style.padding = ((game_params.sizeY + game_params.posY + 20) / 2);   //TODO: WTF????
+Game.style.paddingLeft = Game.style.paddingRight = ((game_params.sizeX + game_params.posX + 20) / 2);
+Game.style.paddingTop = Game.style.paddingBottom = ((game_params.sizeY + game_params.posY + 20) / 2);   //TODO: WTF????
+Game.style.width = 0;
+Game.style.height = 0;
 
 function to_integer(s /*Строка*/){ //Косорукое преобразование строки в целое
     let ans = "";
     for (let i = 0; i < s.length; i++){
-        if ("0123456789".lastIndexOf(s[i]) != -1){
+        if ("0123456789.".lastIndexOf(s[i]) != -1){
             ans += s[i];
         }
     }
@@ -25,6 +28,7 @@ function to_integer(s /*Строка*/){ //Косорукое преобразо
 
 function init_styles(obj /*Любой объект HTML*/){ //Перезаносит все правила стилей в объект
     let style = window.getComputedStyle(obj);
+
     for (i in style){
         if (style[i] != ""){
             obj.style[i] = style[i];
@@ -57,6 +61,87 @@ function distance(dot1 /*Точка-объект*/, dot2 /*Точка-объек
     return dx ** 2 + dy ** 2;
 }
 
+function index_to_number(index){
+    return index.y * game_params.cntX + index.x;
+}
+
+function get_point_by_index(index){
+    return dots[index_to_number(index)];
+}
+
+function create_vertical_lines(){   //Делает вертикальные прямые
+    for (let i = 0; i < game_params.cntX; i += 1){
+        let new_line = doc.createElement('div');
+        linesX.push(new_line);
+        new_line.id = "lineX" + i;
+        
+        Game.appendChild(new_line);
+        new_line.className = "grid";
+        init_styles(new_line);
+
+        new_line.style.top = game_params.posY - game_params.lineWidth / 2;
+        new_line.style.left = game_params.posX + i * game_params.divX - game_params.lineWidth / 2;
+        new_line.style.height = game_params.sizeX;
+        new_line.style.width = game_params.lineWidth;
+    }
+}
+
+function create_horizontal_lines(){ //Делает горизонтальные прямые
+    for (let i = 0; i < game_params.cntY; i += 1){
+        let new_line = doc.createElement('div');
+        linesY.push(new_line);
+        new_line.id = "lineY" + i;
+
+        Game.appendChild(new_line);
+        new_line.className = "grid";
+        init_styles(new_line);
+
+        new_line.style.top = game_params.posY + i * game_params.divY - game_params.lineWidth / 2;
+        new_line.style.left = game_params.posX - game_params.lineWidth / 2;
+        new_line.style.width = game_params.sizeY;
+        new_line.style.height = game_params.lineWidth;
+    }
+}
+
+function create_new_dot(index /*Список из координат по сетке*/){   //Делает новую точку в заданных координатах
+    pos = position_by_index(index);
+    new_dot = doc.createElement("div");
+    dots.push(new_dot);
+    new_dot.coordinates = index;
+    new_dot.id = "dot" + index_to_number(index);
+    Game.appendChild(new_dot);
+
+    new_dot.className = "dot";
+    init_styles(new_dot);
+
+    new_dot.style.top = pos.y - to_integer(new_dot.style.height) / 2;
+    new_dot.style.left = pos.x - to_integer(new_dot.style.width) / 2;
+
+    new_dot.onclick = function(){
+        if (last_dot != finish_point){
+            add_to_chain(this);
+        }
+    }
+    new_dot.onmouseenter = function(){
+        if (distance(last_dot, this) == game_params.dist && last_dot != finish_point){
+            recolour(this, "blue");
+        }
+    };
+    new_dot.onmouseleave = function(){
+        if (distance(last_dot, this) == game_params.dist && last_dot != finish_point){
+            recolour(this, "black");
+        }
+    };
+}
+
+function create_dots(){ //Делает все необходимые точки
+    for (let j = 0; j < game_params.cntY; j += 1){
+        for (let i = 0; i < game_params.cntX; i += 1){
+            create_new_dot({x: i, y: j});
+        }
+    }
+}
+
 function is_intersected(dotA /*Точка-объект*/,
                         dotB /*Точка-объект*/,
                         dotC /*Точка-объект*/,
@@ -87,76 +172,7 @@ function is_intersected(dotA /*Точка-объект*/,
     return ans; //Недобаг: точки могут (нет) лежать на одной прямой
 }
 
-function create_vertical_lines(){   //Делает вертикальные прямые
-    for (let i = 0; i < game_params.cntX; i += 1){
-        let new_line = doc.createElement('div');
-        linesX.push(new_line);
-        new_line.id = "lineX" + i;
-        
-        Game.appendChild(new_line);
-        new_line.className = "grid";
-        init_styles(new_line);
-
-        new_line.style.top = game_params.posY;
-        new_line.style.left = game_params.posX + i * game_params.divX;
-        new_line.style.height = game_params.sizeX;
-        new_line.style.width = game_params.lineWidth;
-    }
-}
-
-function create_horizontal_lines(){ //Делает горизонтальные прямые
-    for (let i = 0; i < game_params.cntY; i += 1){
-        let new_line = doc.createElement('div');
-        linesY.push(new_line);
-        new_line.id = "lineY" + i;
-
-        Game.appendChild(new_line);
-        new_line.className = "grid";
-        init_styles(new_line);
-
-        new_line.style.top = game_params.posY + i * game_params.divY;
-        new_line.style.left = game_params.posX;
-        new_line.style.width = game_params.sizeY;
-        new_line.style.height = game_params.lineWidth;
-    }
-}
-
-function create_new_dot(index /*Список из координат по сетке*/){   //Делает новую точку в заданных координатах
-    pos = position_by_index(index);
-    new_dot = doc.createElement("div");
-    dots.push(new_dot);
-    new_dot.coordinates = index;
-    new_dot.id = "dot" + (index.y * game_params.cntX + index.x);
-
-    Game.appendChild(new_dot);
-    new_dot.className = "dot";
-    init_styles(new_dot);
-
-    new_dot.style.top = pos.y - to_integer(new_dot.style.height) / 2;
-    new_dot.style.left = pos.x - to_integer(new_dot.style.width) / 2;
-
-    new_dot.onclick = function(){add_to_chain(this);};
-    new_dot.onmouseenter = function(){
-        if (distance(last_dot, this) == game_params.dist){
-            recolour(this, "white");
-        }
-    };
-    new_dot.onmouseleave = function(){
-        if (distance(last_dot, this) == game_params.dist){
-            recolour(this, "black");
-        }
-    };
-}
-
-function create_dots(){ //Делает все необходимые точки
-    for (let j = 0; j < game_params.cntY; j += 1){
-        for (let i = 0; i < game_params.cntX; i += 1){
-            create_new_dot({x: i, y: j});
-        }
-    }
-}
-
-function create_chain(dot1 /*Точка-объект*/,
+function create_edge(dot1 /*Точка-объект*/,
                       dot2 /*Точка-объект*/){  //Генерит следующее звено цепи, если можно, и возвращает, можно ли
     if (!dot1){ //Проверка на undefined
         return false;
@@ -177,11 +193,12 @@ function create_chain(dot1 /*Точка-объект*/,
     Game.appendChild(new_edge);
     new_edge.className = "edge";
     init_styles(new_edge);
+    new_edge.style.height = game_params.edgeWidth + "px";
     new_edge.id = "edge" + edges_in_chain.length;
     
     let a = (dot2.coordinates.x - dot1.coordinates.x) * game_params.divX;
     let b = (dot2.coordinates.y - dot1.coordinates.y) * game_params.divY;
-    let c = Math.sqrt((a * a) + (b * b));
+    let c = Math.sqrt((a ** 2) + (b ** 2));
     let sinus = b / c; 
     let cosinus = a / c;
 
@@ -195,17 +212,21 @@ function create_chain(dot1 /*Точка-объект*/,
 }
 
 function add_to_chain(dot){
-    if (last_dot != undefined && !create_chain(last_dot, dot)){
+    if (last_dot != undefined && !create_edge(last_dot, dot)){
         return;
     }
 
     dots_in_chain.push(dot);
-    dot.style.backgroundColor = "black";
+    if (dot != finish_point){
+        dot.style.backgroundColor = "black";
+    }else{
+        dot.style.backgroundColor = "red";
+    }
     dot.onmouseenter = function(){};
     dot.onmouseleave = function(){};
     dot.onclick = function(){reduce_chain_up_to(dot)};
     last_dot = dot;
-    if (dot == dots[finish_point_num]){
+    if (dot == finish_point){
         chain_finished();
     }
 }
@@ -221,11 +242,11 @@ function chain_unfinished(){
 function reduce_chain_up_to(dot){
     while (dots_in_chain[dots_in_chain.length - 1] != dot){
         let cur_dot = dots_in_chain[dots_in_chain.length - 1];
-        if (cur_dot != dots[finish_point_num]){
+        if (cur_dot != finish_point){
             recolour(cur_dot, "black");
             cur_dot.onmouseenter = function(){
-                if (distance(last_dot, this) == game_params.dist){
-                    recolour(this, "white");
+                if (distance(last_dot, this) == game_params.dist && last_dot != finish_point){
+                    recolour(this, "blue");
                 }
             };
             cur_dot.onmouseleave = function(){
@@ -234,21 +255,27 @@ function reduce_chain_up_to(dot){
                 }
             };
         }else{
-            recolour(dots[finish_point_num], "#AA0000");
-            dots[finish_point_num].onmouseenter = function(){
-                if (distance(last_dot, dots[finish_point_num]) != game_params.dist){return;}
-                recolour(dots[finish_point_num], "#FF0000");
+            recolour(finish_point, "red");
+            finish_point.onmouseenter = function(){
+                if (distance(last_dot, finish_point) != game_params.dist && last_dot != finish_point){
+                    recolour(finish_point, "purple");
+                }
             };
-            dots[finish_point_num].onmouseleave = function(){
-                if (distance(last_dot, dots[finish_point_num]) != game_params.dist){return;}
-                recolour(dots[finish_point_num], "#AA0000");
+            finish_point.onmouseleave = function(){
+                if (distance(last_dot, finish_point) != game_params.dist && last_dot != finish_point){
+                    recolour(finish_point, "red");
+                }
             };
         }
-        cur_dot.onclick = function(){add_to_chain(cur_dot);};
+        cur_dot.onclick = function(){
+            if (last_dot != finish_point){
+                add_to_chain(cur_dot);
+            }
+        }
         dots_in_chain.pop();
         Game.removeChild(edges_in_chain.pop());
     }
-    if (dot != dots[finish_point_num]){
+    if (dot != finish_point){
         chain_unfinished();
     }
     last_dot = dot;
@@ -259,21 +286,25 @@ create_vertical_lines();
 create_horizontal_lines();
 create_dots();
 
-let start_point_num = game_params.start.y * game_params.cntX + game_params.start.x;
-let finish_point_num = game_params.finish.y * game_params.cntX + game_params.finish.x;
-recolour(dots[finish_point_num], "orange");
-dots[finish_point_num].onmouseenter = function(){
-    if (distance(last_dot, dots[finish_point_num]) != game_params.dist){
-        return;
+let start_point = dots[index_to_number(game_params.start)];
+let finish_point = dots[index_to_number(game_params.finish)];
+
+recolour(finish_point, "red");
+finish_point.onmouseenter = function(){
+    if (distance(last_dot, finish_point) != game_params.dist && last_dot != finish_point){
+    recolour(finish_point, "purple");
     }
-    recolour(dots[finish_point_num], "purple");
 };
-dots[finish_point_num].onmouseleave = function(){
-    if (distance(last_dot, dots[finish_point_num]) != game_params.dist){
-        return;
+finish_point.onmouseleave = function(){
+    if (distance(last_dot, finish_point) != game_params.dist && last_dot != finish_point){
+    recolour(finish_point, "red");
     }
-    recolour(dots[finish_point_num], "orange");
 };
 
-let last_dot = undefined;
-add_to_chain(dots[start_point_num]);
+start_point.style.backgroundColor = "green";
+start_point.onmouseenter = function(){};
+start_point.onmouseleave = function(){};
+start_point.onclick = function(){reduce_chain_up_to(start_point)};
+
+let last_dot = start_point;
+dots_in_chain.push(start_point);

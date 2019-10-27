@@ -90,6 +90,7 @@ p{
 
 #sec2game > #Game{
     position: relative;
+    background-color: white;
 }
 
 #sec2game > img{
