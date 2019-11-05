@@ -3,6 +3,8 @@
         <link rel="icon" type="image/png" href="images/favicon2.png">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/GameStyles.css"/>
+        <script src="js/Namespace.js"></script>
+        <script src="js/Game.js"></script>
         <meta charset="UTF-8">
     </head>
     <body>
@@ -31,13 +33,12 @@
                 Construct the longest non-self-intersecting polyline whose vertices are nodes of 6x6 grid and the length of each
                 edge is √5.
             </p>
-            <input type="text" placeholder="Your name">
-            <button>Submit</button>
+            <input id="sec2input" type="text" placeholder="Your name">
+            <button id="sec2button">Submit</button>
         </div>
         <div id="sec2game">
             <div id="Game"></div>
-            <script src="js/Namespace.js"></script>
-            <script src="js/Game.js"></script>
+            <script>create_game(game_params);</script>
         </div>
 
         <div id="sec3text" class="text">
