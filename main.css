@@ -1,0 +1,422 @@
+body {
+    margin: 0%;
+    background-color: rgb(255, 0, 242);
+    display: grid;
+    grid-template-areas: "header header"
+                         "sec1text sec1pattern"
+                         "sec2text sec2game"
+                         "sec3text sec3board"
+                         "leftfoot rightfoot";
+    
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.text{
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 22%;
+    padding-right: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    font-weight: bolder;
+}
+
+p{
+    line-height: 150%;
+}
+
+#header {
+    grid-area: header;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: #22272D;
+    width: 80%;
+}
+
+#sec1text {
+    grid-area: sec1text;
+    background-color: #FFFFFF;
+}
+
+#sec1text > h1{
+    font-size: 2.7em;
+    color: #182033;
+}
+
+#sec1text > p{
+    font-size: 1.6em;
+    color: #5D6679;
+}
+
+#sec1pattern {
+    grid-area: sec1pattern;
+    width: 100%;
+    /* background-color: #182033; */
+    background-image: url('/images/pattern.png');
+}
+
+#sec1pattern > img{
+    width: 100%;
+}
+
+#sec2text{
+    grid-area: sec2text;
+    background-color: #182033;
+    display: grid;
+    grid-template-areas: "head"
+                         "body"
+                         "input"
+                         "button";
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto auto;
+}
+
+#sec2text > #sec2texthead{
+    grid-area: head;
+    font-size: 2.1em;
+    color: #FEFEFF;
+}
+
+#sec2text > #sec2textbody{
+    grid-area: body;
+    font-size: 1.5em;
+    color: #8995B1;
+}
+
+#sec2text > #sec2input{
+    grid-area: input;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    height: 4em;
+}
+
+#sec2text > #sec2button{
+    grid-area: button;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    height: 4em;
+    
+    background-color: orange;
+    color: white;
+}
+
+#sec2game{
+    grid-area: sec2game;
+    background-color: #182033;
+    width: 73%;
+    padding-left: 4%;
+    padding-top: 10%;
+    padding-right: 23%;
+    padding-bottom: 10%;
+}
+
+#sec2game > #Game{
+    position: relative;
+    background-color: white;
+}
+
+#sec2game > img{
+    width: 100%;
+}
+
+#sec3text{
+    grid-area: sec3text;
+    background-color: #FFFFFF;
+}
+
+#sec3text > h1{
+    font-weight: normal;
+    color: #444241;
+}
+
+#sec3text > ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sec3text > ul > li{
+    font-size: 1.1em;
+    line-height: 200%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#sec3board{
+    grid-area: sec3board;
+    padding-right: 22%;
+    background-color: #306960;
+    color: #FFFFFF;
+    display: grid;
+    grid-template-areas: "head head"
+                         "1player 1score"
+                         "2player 2score"
+                         "3player 3score"
+                         "4player 4score"
+                         "5player 5score";
+    grid-template-columns: auto auto;
+    grid-template-rows: 5em 5em 5em 5em 5em 5em;
+    grid-column-gap: 40%;
+}
+
+#sec3board > h1{
+    grid-area: head;
+    text-align: center;
+    font-weight: normal;
+}
+
+.boardelem{
+    font-size: 1.5em;
+}
+
+#1player{
+    grid-area: 1player;
+}
+
+#1score{
+    grid-area: 1score;
+}
+
+#2player{
+    grid-area: 2player;
+}
+
+#2score{
+    grid-area: 2score;
+}
+
+#3player{
+    grid-area: 3player;
+}
+
+#3score{
+    grid-area: 3score;
+}
+
+#4player{
+    grid-area: 4player;
+}
+
+#4score{
+    grid-area: 4score;
+}
+
+#5player{
+    grid-area: 5player;
+}
+
+#5score{
+    grid-area: 5score;
+}
+
+#leftfoot{
+    grid-area: leftfoot;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20%;
+    background-color: #F7F7F7;
+}
+
+/* Здесь начинается сворованный код TODO: осознать, перепистаь*/
+
+.menu-box{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    height: 50px;
+    font-weight: 500;
+}
+
+.menu{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    box-sizing: border-box;
+    margin-top: 0;
+    padding: 0;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.menu-link-item {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding: 0 15px;
+    display: inline-block;
+    border-left: solid 1px rgba(145, 146, 147, 0.25);
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(145, 146, 147, 0.247059);
+    font-size: 14px;
+}
+
+.menu-link-item:first-child, .footer-link:first-child {
+    padding-left: 0;
+    border: none;
+}
+
+.copyright-text{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    color: #6d6c6c;
+}
+
+.copyright {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #6d6c6c;
+    text-decoration: none;
+}
+
+.hil{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #6d6c6c;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+
+.inner{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: transparent;
+    text-decoration: none;
+    color: #6d6c6c;
+}
+
+.langs{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: transparent;
+    text-decoration: none;
+    color: #6d6c6c;
+    margin-right: 5px;
+}
+
+.active{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: #6d6c6c;
+    font-weight: 700;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.footer-links{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #337ab7;
+}
+
+.footer-link{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: 'Open Sans', sans-serif;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: transparent;
+    text-decoration: none;
+    padding: 0 10px;
+    border-left: solid 1px rgba(145, 146, 147, 0.25);
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(145, 146, 147, 0.247059);
+    color: #6d6c6c;
+}
+
+/* Закончился */
+
+#rightfoot{
+    grid-area: rightfoot;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 20%;
+    background-color: #F7F7F7;
+}
+
+#rightfoot > *{
+    float: right;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+

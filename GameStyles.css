@@ -1,0 +1,23 @@
+.grid{
+    background-color: orange;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    z-index: 10;
+}
+
+.dot{
+    background-color: black;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    z-index: 100;
+}
+
+.edge{
+    background-color: black;
+    width: 0px;
+    position: absolute;
+    z-index: 50;
+}
